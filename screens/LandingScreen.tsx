@@ -10,7 +10,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import LottieView from "lottie-react-native";
-import WaterLoader from "../assets/lotties/8425-water.json";
+import WaterLoader from "../assets/lotties/lf30_editor_mr8ba4wq.json";
 import RudeTitle from "../assets/typo/Rude.png";
 
 const { width, height } = Dimensions.get("window");
@@ -24,8 +24,10 @@ export default function Landing({ navigation }) {
           <Image source={RudeTitle} style={styles.title} />
           <LottieView
             style={styles.animation}
-            speed={1}
+            loop={false}
             autoPlay
+            onAnimationFinish={() => navigation.navigate("Warning")}
+            speed={1}
             source={WaterLoader}
           />
           <TouchableOpacity
@@ -33,7 +35,7 @@ export default function Landing({ navigation }) {
             activeOpacity={0.4}
             style={styles.btn}
           >
-            <Text style={styles.btnTxt}>Let's get started</Text>
+            <Text style={styles.btnTxt}>Let's get hydrated</Text>
           </TouchableOpacity>
         </View>
       </SafeAreaView>
@@ -69,7 +71,7 @@ const styles = StyleSheet.create({
     marginTop: 300,
   },
   btnTxt: {
-    color: "#1e1e1e",
+    color: "#f5f5f5",
     fontSize: 35,
   },
 });
