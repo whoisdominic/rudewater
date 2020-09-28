@@ -1,21 +1,25 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import "react-native-gesture-handler";
+import { createStackNavigator } from "@react-navigation/stack";
+import { NavigationContainer } from "@react-navigation/native";
+
+// Setup Screens
+import LandingScreen from "./screens/LandingScreen";
+import WarningScreen from "./screens/WarningScreen";
+import PermissionScreen from "./screens/PermissionsScreen";
+import ProfileScreen from "./screens/ProfileScreen";
+
+const SetupStack = createStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <SetupStack.Navigator headerMode="none">
+        <SetupStack.Screen name="Landing" component={LandingScreen} />
+        <SetupStack.Screen name="Warning" component={WarningScreen} />
+        <SetupStack.Screen name="Permission" component={PermissionScreen} />
+        <SetupStack.Screen name="Profile" component={ProfileScreen} />
+      </SetupStack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
