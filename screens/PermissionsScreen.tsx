@@ -12,7 +12,7 @@ Notifications.setNotificationHandler({
   }),
 });
 
-export default function App() {
+export default function PushPermissions({ navigation }) {
   const [expoPushToken, setExpoPushToken] = useState("");
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
@@ -68,6 +68,10 @@ export default function App() {
           await sendPushNotification(expoPushToken);
         }}
       />
+      <Button
+        title="Next screen"
+        onPress={() => navigation.navigate("Profile")}
+      />
     </View>
   );
 }
@@ -77,8 +81,9 @@ async function sendPushNotification(expoPushToken) {
   const message = {
     to: expoPushToken,
     sound: "default",
-    title: "Drink your water bitch",
-    body: "Listen I know it's tough but just go do it!",
+    title: "Welcome to Rude Water!",
+    body:
+      "Listen I we know it's tough tryna get ya water, we're here to help. It just happens that we are rude AF!",
     data: { data: "goes here" },
   };
 
