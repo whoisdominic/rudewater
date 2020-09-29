@@ -18,7 +18,7 @@ const { width, height } = Dimensions.get("window");
 export default function Warning({ navigation }) {
   return (
     <View style={styles.container}>
-      <StatusBar style="auto" />
+      <StatusBar style="light" />
       <SafeAreaView>
         <Image style={styles.warning} source={WarningTypo} />
       </SafeAreaView>

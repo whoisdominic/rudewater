@@ -1,7 +1,7 @@
 # Rude Water
 A React Native application that reminds you to drink water and is... very... rude about it.
 
-#  Credits
+# Credits
 
 This lesson was created by [Dominic Cobb](https://www.linkedin.com/in/dominiccobb)
 

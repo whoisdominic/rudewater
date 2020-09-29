@@ -5,6 +5,7 @@ import { StyleSheet, Text, View } from "react-native";
 export default function BodyInfo() {
   return (
     <View style={styles.container}>
+      <StatusBar style="light" />
       <Text>Body Info</Text>
       <StatusBar style="auto" />
     </View>
@@ -14,7 +15,7 @@ export default function BodyInfo() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#000A14",
     alignItems: "center",
     justifyContent: "center",
   },
