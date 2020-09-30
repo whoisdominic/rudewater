@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   StyleSheet,
   Text,
@@ -8,13 +8,22 @@ import {
   TouchableOpacity,
   SafeAreaView,
   TextInput,
+  Alert,
 } from "react-native";
 import Slider from "@react-native-community/slider";
-
+// Context and storage
+import AsyncStorage from "@react-native-community/async-storage";
+import { AuthContext } from "../../context/userContext";
+// Water Algorithm
+import { CalculateWater } from "../../algorithms/waterPerDay";
+// Phone dimensions
 const { width, height } = Dimensions.get("window");
 
 export default function BodyInfo({ navigation }) {
-  const [slider, setSlider] = useState(0);
+  const { signIn } = useContext(AuthContext);
+
+  const [rude, setRude] = useState(0);
+  const [name, setName] = useState("");
   const [weight, setWeight] = useState(0);
   const [age, setAge] = useState(18);
 
@@ -27,7 +36,7 @@ export default function BodyInfo({ navigation }) {
   };
 
   const handleSlider = (val: number) => {
-    setSlider(val);
+    setRude(val);
   };
   const rudeLvl: string[] = [
     "I just want reminders 🥰",
@@ -36,8 +45,19 @@ export default function BodyInfo({ navigation }) {
     "Be horrifically rude ☠️",
   ];
 
-  const handleComplete = () => {
-    console.log(age, weight, slider);
+  const storeData = async (value: any) => {
+    try {
+      const jsonValue = JSON.stringify(value);
+      await AsyncStorage.setItem("@rude_water_user", jsonValue);
+    } catch (e) {
+      // saving error
+      console.log(e);
+    }
+  };
+
+  const handleComplete = (user: object) => {
+    storeData(user);
+    signIn(user);
   };
 
   return (
@@ -45,7 +65,6 @@ export default function BodyInfo({ navigation }) {
       <StatusBar style="light" />
       <SafeAreaView style={styles.container}>
         <TextInput
-          defaultValue={"18"}
           maxLength={2}
           onChangeText={handleAgeInput}
           keyboardType={"numeric"}
@@ -56,7 +75,6 @@ export default function BodyInfo({ navigation }) {
           style={styles.textInput}
         />
         <TextInput
-          defaultValue={"150"}
           maxLength={3}
           onChangeText={handleWeightInput}
           keyboardType={"numeric"}
@@ -76,9 +94,24 @@ export default function BodyInfo({ navigation }) {
           maximumTrackTintColor="#3b28cc"
           step={1}
         />
-        <Text style={styles.btnTxt}>{rudeLvl[slider]}</Text>
+        <Text style={styles.btnTxt}>{rudeLvl[rude]}</Text>
         <TouchableOpacity
-          onPress={handleComplete}
+          onPress={() => {
+            if (age >= 18 && weight >= 80) {
+              handleComplete({
+                age: age,
+                weight: weight,
+                rudeLvl: rude,
+                water: CalculateWater(age, weight),
+              });
+            } else if (age < 18 && rude > 0) {
+              Alert.alert("Must be 18 years or older to get rude messages");
+            } else if (weight < 60) {
+              Alert.alert(
+                "If really are under 60lbs you should seek medical attention"
+              );
+            }
+          }}
           activeOpacity={0.4}
           style={styles.btn}
         >
@@ -87,6 +120,7 @@ export default function BodyInfo({ navigation }) {
       </SafeAreaView>
     </View>
   );
+  28;
 }
 
 const styles = StyleSheet.create({

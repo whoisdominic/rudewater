@@ -11,7 +11,7 @@ import {
 } from "react-native";
 
 // Typo
-import WarningTypo from "../assets/typo/warning.png";
+import WarningTypo from "../../assets/typo/warning.png";
 
 const { width, height } = Dimensions.get("window");
 

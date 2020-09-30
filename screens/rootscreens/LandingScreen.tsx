@@ -10,8 +10,8 @@ import {
   TouchableOpacity,
 } from "react-native";
 import LottieView from "lottie-react-native";
-import WaterLoader from "../assets/lotties/lf30_editor_mr8ba4wq.json";
-import RudeTitle from "../assets/typo/Rude.png";
+import WaterLoader from "../../assets/lotties/lf30_editor_mr8ba4wq.json";
+import RudeTitle from "../../assets/typo/Rude.png";
 
 const { width, height } = Dimensions.get("window");
 
